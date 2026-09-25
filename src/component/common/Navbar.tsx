@@ -10,10 +10,10 @@ const Navbar = () => {
     const { plan, saved } = usePlan();
 
     return (
-        <nav className="border-b border-white/15 bg-[#000000] text-white">
+        <nav className="sticky top-0 z-50  border-b border-white/15 bg-[#000000] text-white">
             <div className="container mx-auto flex items-center justify-between p-4">
 
-                {/* Logo */}
+                
                 <Link href="/" className="flex items-center gap-2">
                     <Image
                         src={Logo}
@@ -27,7 +27,7 @@ const Navbar = () => {
                     </p>
                 </Link>
 
-                {/* Navigation */}
+                
                 <div className="flex gap-6">
                     <Link
                         href="/"
@@ -44,7 +44,7 @@ const Navbar = () => {
                     </Link>
                 </div>
 
-                {/* Counters */}
+                
                 <div className="flex gap-3">
 
                     <Link
