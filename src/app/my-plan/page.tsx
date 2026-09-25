@@ -17,9 +17,24 @@ const MyPlan = () => {
     const [activeTab, setActiveTab] =
         useState<"plan" | "saved">("plan");
         const [sortBy, setSortBy] = useState("default");
+                                                                                                               {/* Sort Options */}
+   const workouts = (
+    activeTab === "plan" ? plan : saved
+).slice().sort((a, b) => {
+    if (sortBy === "duration") {
+        return a.duration - b.duration;
+    }
 
-    const workouts =
-        activeTab === "plan" ? plan : saved;
+    if (sortBy === "calories") {
+        return a.caloriesBurned - b.caloriesBurned;
+    }
+
+    if (sortBy === "rating") {
+        return b.rating - a.rating;
+    }
+
+    return 0;
+});
 
     const totalMinutes = plan.reduce(
         (total, workout) =>
@@ -89,29 +104,43 @@ const MyPlan = () => {
                                                                                                                             {/* Tabs */}
             <div className="mt-10 flex gap-3 border-b border-base-300 pb-3">
 
-                <button
-                    onClick={() => setActiveTab("plan")}
-                    className={`btn ${
-                        activeTab === "plan"
-                            ? "btn-primary"
-                            : "btn-ghost"
-                    }`}
-                >
-                    Today's Plan ({plan.length})
-                </button>
+    <button
+        onClick={() => setActiveTab("plan")}
+        className={`btn ${
+            activeTab === "plan"
+                ? "btn-primary"
+                : "btn-ghost"
+        }`}
+    >
+        Today's Plan ({plan.length})
+    </button>
 
-                <button
-                    onClick={() => setActiveTab("saved")}
-                    className={`btn ${
-                        activeTab === "saved"
-                            ? "btn-primary"
-                            : "btn-ghost"
-                    }`}
-                >
-                    Saved ({saved.length})
-                </button>
+    <button
+        onClick={() => setActiveTab("saved")}
+        className={`btn ${
+            activeTab === "saved"
+                ? "btn-primary"
+                : "btn-ghost"
+        }`}
+    >
+        Saved ({saved.length})
+    </button>
 
-            </div>
+</div>
+                                                                                                      {/* Sort Options */}
+                                                                                                            
+<div className="mt-6 flex justify-end">
+    <select
+        value={sortBy}
+        onChange={(e) => setSortBy(e.target.value)}
+        className="select select-bordered"
+    >
+        <option value="default">Sort By</option>
+        <option value="duration">Duration</option>
+        <option value="calories">Calories</option>
+        <option value="rating">Rating</option>
+    </select>
+</div>
 
                                                                                                           {/* Workout List */}
             <div className="mt-8">
