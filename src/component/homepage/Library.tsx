@@ -1,5 +1,5 @@
 import { Tcard } from "@/types/card.type";
-import Fitcard from "@/component/share/Fitcard";
+import LibrarySort from "./LibrarySort";
 
 const getAllData = async (): Promise<Tcard[]> => {
     const res = await fetch(
@@ -22,9 +22,10 @@ const Library = async () => {
     const data = await getAllData();
 
     return (
-        <section id="library" className="container mx-auto px-4 py-16">
-            
-            {/* Heading */}
+        <section
+            id="library"
+            className="container mx-auto px-4 py-16"
+        >
             <div className="mb-10">
                 <p className="text-2xl font-bold">
                     THE LIBRARY
@@ -35,16 +36,7 @@ const Library = async () => {
                 </p>
             </div>
 
-            {/* Workout Grid */}
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {data.map((item: Tcard) => (
-                    <Fitcard
-                        key={item.id}
-                        exercise={item}
-                    />
-                ))}
-            </div>
-
+            <LibrarySort data={data} />
         </section>
     );
 };

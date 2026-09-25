@@ -16,6 +16,7 @@ const MyPlan = () => {
 
     const [activeTab, setActiveTab] =
         useState<"plan" | "saved">("plan");
+        const [sortBy, setSortBy] = useState("default");
 
     const workouts =
         activeTab === "plan" ? plan : saved;
