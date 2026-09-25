@@ -1,5 +1,3 @@
-// src/app/workout/[id]/page.tsx
-
 import { Tcard } from "@/types/card.type";
 import Image from "next/image";
 
