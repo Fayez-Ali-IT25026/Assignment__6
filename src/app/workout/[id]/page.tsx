@@ -1,5 +1,6 @@
 import { Tcard } from "@/types/card.type";
 import Image from "next/image";
+import WorkoutActions from "@/component/workout/WorkoutActions";
 
 type WorkoutDetailsProps = {
     params: Promise<{
@@ -180,18 +181,7 @@ const WorkoutDetails = async ({
                     </div>
 
                     
-                    <div className="flex flex-wrap gap-3">
-
-                        <button className="btn btn-primary">
-                            Add to todays plan
-                        </button>
-
-                        <button className="btn btn-outline">
-                            Save for later
-                        </button>
-
-                    </div>
-
+                    <WorkoutActions workout={workout} />
                 </div>
             </div>
         </main>

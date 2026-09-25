@@ -1,32 +1,55 @@
 "use client";
 
-import { useState } from "react";
+import { Tcard } from "@/types/card.type";
+import { usePlan } from "@/context/PlanContext";
 
 type WorkoutActionsProps = {
-  workoutId: number;
+    workout: Tcard;
 };
 
-const WorkoutActions = ({ workoutId }: WorkoutActionsProps) => {
-  const [added, setAdded] = useState(false);
+const WorkoutActions = ({ workout }: WorkoutActionsProps) => {
+    const {
+        plan,
+        saved,
+        addToPlan,
+        saveForLater,
+    } = usePlan();
 
-  const handleAddToPlan = () => {
-    setAdded(true);
-  };
+    const alreadyInPlan = plan.some(
+        (item) => item.id === workout.id
+    );
 
-  return (
-    <div className="flex flex-wrap gap-3">
-      <button
-        onClick={handleAddToPlan}
-        className="btn btn-primary"
-      >
-        {added ? "Added to today's plan" : "Add to today's plan"}
-      </button>
+    const alreadySaved = saved.some(
+        (item) => item.id === workout.id
+    );
 
-      <button className="btn btn-outline">
-        Save for later
-      </button>
-    </div>
-  );
+    return (
+        <div className="flex flex-wrap gap-3">
+
+            <button
+                onClick={() => addToPlan(workout)}
+                disabled={alreadyInPlan || plan.length >= 5}
+                className="btn btn-primary"
+            >
+                {alreadyInPlan
+                    ? "Already in today's plan"
+                    : plan.length >= 5
+                    ? "Plan is full"
+                    : "Add to today's plan"}
+            </button>
+
+            <button
+                onClick={() => saveForLater(workout)}
+                disabled={alreadySaved}
+                className="btn btn-outline"
+            >
+                {alreadySaved
+                    ? "Already saved"
+                    : "Save for later"}
+            </button>
+
+        </div>
+    );
 };
 
 export default WorkoutActions;
