@@ -1,7 +1,13 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import {
+    createContext,
+    useContext,
+    useState,
+    useEffect,
+} from "react";
 import { Tcard } from "@/types/card.type";
+import { toast } from "react-toastify";
 
 type PlanContextType = {
     plan: Tcard[];
@@ -23,45 +29,74 @@ export const PlanProvider = ({
 }: {
     children: React.ReactNode;
 }) => {
-    const [plan, setPlan] = useState<Tcard[]>([]);
-    const [saved, setSaved] = useState<Tcard[]>([]);
+   const [plan, setPlan] = useState<Tcard[]>([]);
+const [saved, setSaved] = useState<Tcard[]>([]);
 
-    const addToPlan = (workout: Tcard) => {
-        setPlan((prev) => {
-            if (prev.length >= 5) return prev;
+useEffect(() => {
+    const storedPlan = localStorage.getItem("fitlog-plan");
+    const storedSaved = localStorage.getItem("fitlog-saved");
 
-            if (prev.some((item) => item.id === workout.id)) {
-                return prev;
-            }
+    if (storedPlan) {
+        setPlan(JSON.parse(storedPlan));
+    }
 
-            const newPlan = [...prev, workout];
+    if (storedSaved) {
+        setSaved(JSON.parse(storedSaved));
+    }
+}, []);
 
-            localStorage.setItem(
-                "fitlog-plan",
-                JSON.stringify(newPlan)
-            );
 
-            return newPlan;
-        });
-    };
+                                                                                           // it is addToPlan
 
+   const addToPlan = (workout: Tcard) => {
+    if (plan.length >= 5) {
+        toast.error("You can add maximum 5 workouts.");
+        return;
+    }
+
+    if (plan.some((item) => item.id === workout.id)) {
+        toast.info("This workout is already in your plan.");
+        return;
+    }
+
+    const newPlan = [...plan, workout];
+
+    setPlan(newPlan);
+
+    localStorage.setItem(
+        "fitlog-plan",
+        JSON.stringify(newPlan)
+    );
+
+    toast.success(`${workout.name} added to today's plan!`);
+};
+                                                                                           // addToPlan end
+
+
+
+                                                                                          //saveForLater function
     const saveForLater = (workout: Tcard) => {
-        setSaved((prev) => {
-            if (prev.some((item) => item.id === workout.id)) {
-                return prev;
-            }
+    if (saved.some((item) => item.id === workout.id)) {
+        toast.info("This workout is already saved.");
+        return;
+    }
 
-            const newSaved = [...prev, workout];
+    const newSaved = [...saved, workout];
 
-            localStorage.setItem(
-                "fitlog-saved",
-                JSON.stringify(newSaved)
-            );
+    setSaved(newSaved);
 
-            return newSaved;
-        });
-    };
+    localStorage.setItem(
+        "fitlog-saved",
+        JSON.stringify(newSaved)
+    );
 
+    toast.success(`${workout.name} saved for later!`);
+};
+                                                                                         //saveForLater function end
+
+
+
+                                                                                          // removeFromPlan function
     const removeFromPlan = (id: number) => {
         setPlan((prev) => {
             const newPlan = prev.filter(
@@ -76,7 +111,10 @@ export const PlanProvider = ({
             return newPlan;
         });
     };
+                                                                                              // removeFromPlan function end
 
+
+                                                                                                  // removeFromSaved function
     const removeFromSaved = (id: number) => {
         setSaved((prev) => {
             const newSaved = prev.filter(
@@ -91,7 +129,7 @@ export const PlanProvider = ({
             return newSaved;
         });
     };
-
+                                                                                                    // removeFromSaved function end
     return (
         <PlanContext.Provider
             value={{
