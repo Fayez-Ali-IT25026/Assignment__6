@@ -1,5 +1,6 @@
 import { Tcard } from "@/types/card.type";
 import Image from "next/image";
+import Link from "next/link";
 
 type CardProps = {
   exercise: Tcard;
@@ -99,9 +100,12 @@ const Fitcard = ({ exercise }: CardProps) => {
             ⭐ {exercise.rating}
           </div>
 
-          <button className="btn btn-primary">
-            View Details
-          </button>
+          <Link
+  href={`/workout/${exercise.id}`}
+  className="btn btn-primary"
+>
+  View Details
+</Link>
 
         </div>
 
