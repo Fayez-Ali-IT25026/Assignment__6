@@ -18,7 +18,10 @@ const Navbar = () => {
         <nav className="sticky top-0 z-50 border-b border-white/15 bg-[#000000] text-white">
             <div className="container mx-auto flex items-center justify-between p-4">
 
-                {/* Logo */}
+                                                                                                         {/* Logo */}
+
+
+                                                                                                         
                 <Link href="/" className="flex items-center gap-2">
                     <Image
                         src={Logo}
@@ -32,7 +35,10 @@ const Navbar = () => {
                     </p>
                 </Link>
 
-                {/* Desktop Navigation */}
+                                                                                           {/* Desktop Navigation only desktop*/}  
+
+
+
                 <div className="hidden gap-6 md:flex">
                     <Link
                         href="/"
@@ -57,7 +63,10 @@ const Navbar = () => {
                     </Link>
                 </div>
 
-                {/* Plan & Saved */}
+                                                                                                          {/* Plan & Saved */}
+
+
+
                 <div className="hidden gap-3 sm:flex">
 
                     <Link
@@ -76,7 +85,7 @@ const Navbar = () => {
 
                 </div>
 
-                {/* Mobile Menu Button */}
+                                                                                               {/* Mobile Menu Button eta mobiler jonno optional */}
                 <button
                     onClick={() => setMenuOpen(!menuOpen)}
                     className="btn btn-ghost md:hidden"
@@ -86,7 +95,7 @@ const Navbar = () => {
 
             </div>
 
-            {/* Mobile Menu */}
+                                                                                                   {/* Mobile Menu */}
             {menuOpen && (
                 <div className="border-t border-white/15 px-4 py-4 md:hidden">
 
