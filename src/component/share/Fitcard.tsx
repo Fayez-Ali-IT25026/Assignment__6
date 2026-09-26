@@ -10,21 +10,21 @@ const Fitcard = ({ exercise }: CardProps) => {
   return (
     <div className="card bg-base-100 shadow-xl">
 
-      {/* Image */}
+                                                                                           {/* Image */}
       <figure>
         <Image
           src={exercise.image}
           alt={exercise.name}
           width={740}
           height={500}
-          className="h-56 w-full object-cover"
+          className="h-90 w-full object-cover"
         />
       </figure>
 
-      {/* Card Body */}
+                                                                                         {/* Card Body */}
       <div className="card-body">
 
-        {/* Title + Difficulty */}
+                                                                                         {/* Title + Difficulty */}
         <div className="flex items-center justify-between gap-2">
           <h2 className="card-title">
             {exercise.name}
@@ -35,7 +35,7 @@ const Fitcard = ({ exercise }: CardProps) => {
           </div>
         </div>
 
-        {/* Muscle Groups */}
+                                                                                            {/* Muscle Groups */}
         <div className="flex flex-wrap gap-2">
           {exercise.muscleGroups.map((muscle) => (
             <div
@@ -47,7 +47,7 @@ const Fitcard = ({ exercise }: CardProps) => {
           ))}
         </div>
 
-        {/* Description */}
+                                                                                             {/* Description */}
         <p className="text-sm text-base-content/70">
           {exercise.description}
         </p>
